@@ -462,32 +462,6 @@
       line-height: 1.5;
     }
 
-    /* Photo change helper button (visible for user to test/upload locally too) */
-    .change-photo-btn {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50px;
-      padding: 6px 14px;
-      color: #fff;
-      font-size: 0.78rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      z-index: 5;
-      transition: all 0.2s ease;
-    }
-    .change-photo-btn:hover {
-      background: rgba(0, 0, 0, 0.85);
-      border-color: var(--gold);
-    }
-    #photo-upload-input {
-      display: none;
-    }
 
 
     .photo-caption {
@@ -983,20 +957,12 @@
             <div class="photo-fallback-icon">👸✨</div>
             <div class="photo-fallback-text">
               <strong>Aapki Khoobsurat Tasveer</strong><br>
-              <small style="opacity: 0.8; font-size: 0.82rem;">
-                (Yahan aapki photo dikhegi. Repo me <code>photo.jpg</code> upload karein ya neeche click karein)
               <small style="opacity: 0.8; font-size: 0.85rem;">
                 (Aapki pyari si muskaan ✨)
               </small>
             </div>
           </div>
         </div>
-
-        <!-- Optional on-the-fly local photo selector (works seamlessly anywhere) -->
-        <label for="photo-upload-input" class="change-photo-btn" title="Photo badlein ya upload karein">
-          <span>📷 Photo badlein</span>
-        </label>
-        <input type="file" id="photo-upload-input" accept="image/*" />
 
         <div class="photo-caption">
           "Aapki ye pyari si muskaan hamesha aisi hi barkarar rahe ✨"
@@ -1037,6 +1003,7 @@
       <div class="letter-body">
         <p class="letter-salutation">
           Aadarniya & Pyari Dost,
+          Aadarniya AmishaDeviji 😊
         </p>
 
         <p>
@@ -1061,6 +1028,7 @@
         <div class="letter-sign">
           <div class="letter-sign-text">Aapke achhe bhavishya ki kamna ke sath,</div>
           <div class="letter-sign-name" id="signAuthor">Aapka Dost ✨</div>
+          <div class="letter-sign-name" id="signAuthor">Aapka Dost Amish ✨</div>
         </div>
       </div>
     </article>
@@ -1116,6 +1084,7 @@
       photoPath: "photo.jpg",
       // Author / Aapka naam
       authorName: "Aapka Dost ✨",
+      authorName: "Aapka Dost Amish ✨",
       // Birthday Date
       birthdayDate: "17 November",
     };
@@ -1125,7 +1094,6 @@
     document.getElementById('signAuthor').textContent = BIRTHDAY_CONFIG.authorName;
 
     /* ==========================================================
-       PHOTO ERROR & UPLOAD HANDLERS
        PHOTO ERROR HANDLER
        ========================================================== */
     function handlePhotoError() {
@@ -1134,24 +1102,6 @@
       img.style.display = 'none';
       fallback.style.display = 'flex';
     }
-
-    // Optional client-side image selector (instant preview)
-    const photoUploadInput = document.getElementById('photo-upload-input');
-    photoUploadInput.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          const img = document.getElementById('friendPhoto');
-          const fallback = document.getElementById('fallbackView');
-          img.src = event.target.result;
-          img.style.display = 'block';
-          fallback.style.display = 'none';
-          triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 2);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
 
     /* ==========================================================
        BUILT-IN WEB AUDIO MELODY SYNTHESIZER
